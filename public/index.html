@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+  </head>
+  <body>
+    <div id="Root" class="container">
+      <div id="join" class="joinContainer">
+        <h3>Join</h3>
+        <input type="text" id="username" placeholder="username" />
+        <input type="text" id="room" placeholder="room" />
+        <button id="joinButton">Join</button>
+      </div>
+      <div id="chat" class="chatContainer">
+        <header class="header">
+          <h2 id="roomTitle" class="room"></h2>
+          <button id="closeButton" class="close">X</button>
+        </header>
+        <div class="innerContainer">
+          <div id="chatScroll" class="chat">
+            <div id="history" class="history"></div>
+            <div class="input">
+              <input id="input" type="text" placeholder="message" />
+              <button id="send">send</button>
+            </div>
+          </div>
+          <div id="online" class="onlineDiv"><p>online:</p></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="public/index.js"></script>
+  </body>
+</html>

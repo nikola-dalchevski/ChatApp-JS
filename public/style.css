@@ -55,7 +55,7 @@
 
 .room {
   display: inline-block;
-  margin-left: 40%;
+
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 40px;
@@ -148,4 +148,11 @@
 .onlineDiv {
   flex: 0.2;
   background-color: lightblue;
+}
+
+.searchInput {
+  height: 20px;
+  margin-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
 }

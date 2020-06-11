@@ -70,6 +70,23 @@ io.on("connection", (socket) => {
     callback();
   });
 
+  socket.on("search", (text) => {
+    let count;
+    text ? (count = 0) : (count = -99999999);
+    Message.find().exec((err, messages) => {
+      let filteredMessages = messages.filter((message, index) => {
+        let test = message.text;
+        if (count >= 20) return;
+        if (test.indexOf(text) !== -1) {
+          count++;
+          return message;
+        }
+      });
+      socket.emit("searchData", { messages: filteredMessages });
+    });
+  });
+  // });
+
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
     if (user) {

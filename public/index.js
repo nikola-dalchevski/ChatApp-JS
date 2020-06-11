@@ -12,10 +12,12 @@ const roomTitle = document.querySelector("#roomTitle");
 const onlineContainer = document.querySelector("#online");
 const chatSroll = document.querySelector("#chatScroll");
 const closeButton = document.querySelector("#closeButton");
+const search = document.querySelector("#search");
 
 joinButton.addEventListener("click", joinHandler);
 send.addEventListener("click", sendMessage);
 input.addEventListener("keyup", onEnterPress);
+search.addEventListener("change", handleSearch);
 
 function onEnterPress(event) {
   if (event.keyCode === 13) {
@@ -72,6 +74,10 @@ socket.on("message", (message) => {
   historyDiv.scrollTop = historyDiv.scrollHeight;
 });
 
+socket.on("searchData", (messages) => {
+  addNewMessage(messages.messages, "clean");
+});
+
 socket.on("roomData", (data) => {
   let room = document.createTextNode("Room: " + data.room);
   roomTitle.innerHTML = "";
@@ -125,7 +131,10 @@ function sendMessage(e) {
   input.value = "";
 }
 
-function addNewMessage(allMessages) {
+function addNewMessage(allMessages, clean) {
+  if (clean) {
+    historyDiv.innerHTML = "";
+  }
   let container;
   allMessages.forEach((message) => {
     container = document.createElement("div");
@@ -152,6 +161,7 @@ function addNewMessage(allMessages) {
     historyDiv.appendChild(container);
     container = null;
   });
+  historyDiv.scrollTop = historyDiv.scrollHeight;
 }
 
 closeButton.addEventListener("click", (event) => {
@@ -164,3 +174,8 @@ closeButton.addEventListener("click", (event) => {
   input.removeEventListener("keyup", onEnterPress);
   location.reload();
 });
+
+function handleSearch(e) {
+  let text = e.target.value;
+  socket.emit("search", text);
+}
